@@ -98,7 +98,7 @@ export class AuthController{
 
     static async VerifyOtp(req: express.Request, res: express.Response, next: express.NextFunction) {
         try {
-            const email = req.user.email;
+            const email = req.user._id || '';
             const otp = req.body.otp;
             if (!email || !otp) {
                 return res.status(400).send('Something went wrong');

@@ -16,7 +16,7 @@ export class AuthController{
             const hashedPassword = CustomHelper.createPasswordHash(password);
 
             const checkIfExist = await UserService.getUserByEmail(email);
-            if(checkIfExist){
+            if(checkIfExist && checkIfExist.verified==true){
                 return res.status(400).send("Looks like you already have an Account with us. Try Logging in!")
             }
 

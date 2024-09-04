@@ -22,9 +22,11 @@ export const CONFIG = {
       secure: true,
     },
   },
-  brevo:{
-    sender:'',
-    apikey:'',
+  brevo: {
+    baseUrl: process.env.BREVO_BASEURL,
+    apikey: process.env.BREVO_APIKEY,
+    sendEMail: "/v3/smtp/email",
+    sender: process.env.BREVO_SENDER,
   },
   uploadsFolderPath: path.resolve(__dirname, "../../uploads"),
   

@@ -1,8 +1,12 @@
-import ChatsView from "@/components/sidebar/sidebar-views/ChatsView"
+// import ChatsView from "@/components/sidebar/sidebar-views/ChatsView"
 import FilesView from "@/components/sidebar/sidebar-views/FilesView"
-import RunView from "@/components/sidebar/sidebar-views/RunView"
-import SettingsView from "@/components/sidebar/sidebar-views/SettingsView"
-import UsersView from "@/components/sidebar/sidebar-views/UsersView"
+import ChatView from "@/components/sidebar/views/ChatView"
+import RunView from "@/components/sidebar/views/RunView"
+import SettingView from "@/components/sidebar/views/SettingView"
+import UserView from "@/components/sidebar/views/UserView"
+// import RunView from "@/components/sidebar/sidebar-views/RunView"
+// import SettingsView from "@/components/sidebar/sidebar-views/SettingsView"
+// import UsersView from "@/components/sidebar/sidebar-views/UsersView"
 import useWindowDimensions from "@/hooks/useWindowDimensions"
 import { VIEWS, ViewContext as ViewContextType } from "@/types/view"
 import { ReactNode, createContext, useContext, useState } from "react"
@@ -26,9 +30,9 @@ function ViewContextProvider({ children }: { children: ReactNode }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(!isMobile)
     const [viewComponents] = useState({
         [VIEWS.FILES]: <FilesView />,
-        [VIEWS.CLIENTS]: <UsersView />,
-        [VIEWS.SETTINGS]: <SettingsView />,
-        [VIEWS.CHATS]: <ChatsView />,
+        [VIEWS.CLIENTS]: <UserView />,
+        [VIEWS.SETTINGS]: <SettingView />,
+        [VIEWS.CHATS]: <ChatView />,
         [VIEWS.RUN]: <RunView />,
     })
     const [viewIcons] = useState({

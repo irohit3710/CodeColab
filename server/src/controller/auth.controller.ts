@@ -16,7 +16,7 @@ export class AuthController{
             const hashedPassword = CustomHelper.createPasswordHash(password);
 
             const checkIfExist = await UserService.getUserByEmail(email);
-            if(checkIfExist){
+            if(checkIfExist && checkIfExist.verified==true){
                 return res.status(400).send("Looks like you already have an Account with us. Try Logging in!")
             }
 
@@ -98,7 +98,7 @@ export class AuthController{
 
     static async VerifyOtp(req: express.Request, res: express.Response, next: express.NextFunction) {
         try {
-            const email = req.user.email;
+            const email = req.user._id || '';
             const otp = req.body.otp;
             if (!email || !otp) {
                 return res.status(400).send('Something went wrong');

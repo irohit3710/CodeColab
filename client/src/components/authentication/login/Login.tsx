@@ -1,31 +1,29 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import toast, { Toaster } from 'react-hot-toast';
-import { convertToBase64 } from '@/utils/helper';
-import avatar from '@/assets/profile.png'
+// import  { useState } from 'react'
+import { Link } from 'react-router-dom'
+import  { Toaster } from 'react-hot-toast';
+// import { convertToBase64 } from '@/utils/helper';
 import Lottie from 'lottie-react';
 import Animation from '@/assets/loginSignupAnimation2.json'
 
 import styles from '../../../styles/Username.module.css'
-import { useTransition } from '@react-spring/web';
+// import { useTransition } from '@react-spring/web';
 export default function Login() {
 
-    const navigate = useNavigate()
-    const [file, setFile] = useState<any>()
+    // const [file, setFile] = useState<any>()
 
 
     /** formik doensn't support file upload so we need to create this handler */
-    const onUpload = async (e: any) => {
-        const base64 = await convertToBase64(e.target.files[0]);
-        setFile(base64);
-    }
+    // const onUpload = async (e: any) => {
+    //     const base64 = await convertToBase64(e.target.files[0]);
+    //     setFile(base64);
+    // }
 
-    const transitions = useTransition(true, {
-        from: { opacity: 0, transform: 'translateX(-100px)' },
-        enter: { opacity: 1, transform: 'translateX(0%)' },
-        leave: { opacity: 0, transform: 'translateX(100px)' },
-        config: { duration: 1000 },
-    });
+    // const transitions = useTransition(true, {
+    //     from: { opacity: 0, transform: 'translateX(-100px)' },
+    //     enter: { opacity: 1, transform: 'translateX(0%)' },
+    //     leave: { opacity: 0, transform: 'translateX(100px)' },
+    //     config: { duration: 1000 },
+    // });
 
     return (
         <>

@@ -1,4 +1,4 @@
-import illustration from "@/assets/illustration.svg"
+// import illustration from "@/assets/illustration.svg"
 import FormComponent from "@/components/forms/FormComponent"
 import Lottie from "lottie-react";
 import Animation from '@/assets/loginSignupAnimation.json'

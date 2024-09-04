@@ -16,10 +16,11 @@ export class BrevoService {
         sendSmtpEmail.bcc = email_data
         sendSmtpEmail.sender = { "name": CONFIG.brevo.sender, "email": CONFIG.brevo.sender };
         sendSmtpEmail.headers = { "Some-Custom-Name": uuidv4() };
-        sendSmtpEmail.htmlContent = htmlTemplate || " ";
-        sendSmtpEmail.replyTo = { email: "help@synchfit.io", name: "SYNCHFIT Help" };
+        sendSmtpEmail.htmlContent = "<html><body><h1>Common: This is my first transactional email.</h1></body></html>";
+        sendSmtpEmail.replyTo = { email: "support@codecolab.com", name: "CODECOLAB" };
 
         try {
+            console.log("sendSmtpEmail  : ",sendSmtpEmail);
             let response = await apiInstance.sendTransacEmail(sendSmtpEmail);
             await EmailLogService.create({
                 userIds: userIds,

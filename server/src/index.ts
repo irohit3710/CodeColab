@@ -27,6 +27,52 @@ const io = new SocketServer(server, {
 
 let userSocketMap: User[] = []
 
+// Typing event queue per room
+let typingQueue: Record<string, { userId: string; cursorPosition: number }[]> = {}
+let processingQueue: Record<string, boolean> = {}
+
+// Function to process the typing queue for a room
+function processTypingQueue(roomId: string, io: SocketServer) {
+	if (!typingQueue[roomId] || typingQueue[roomId].length === 0) {
+		processingQueue[roomId] = false
+		return
+	}
+
+	const typingEvent = typingQueue[roomId].shift()
+	if (!typingEvent) return
+
+	const { userId, cursorPosition } = typingEvent
+
+	const user = getUserBySocketId(userId)
+	if (!user) return
+
+	// Broadcast typing event to the room
+	io.to(roomId).emit(SocketEvent.TYPING_START, {
+		user,
+		cursorPosition,
+	})
+
+	// After the event is broadcasted, continue processing the queue
+	setTimeout(() => processTypingQueue(roomId, io), 100) // Add a small delay to simulate sequential processing
+}
+
+function addTypingEventToQueue(roomId: string, userId: string, cursorPosition: number, io: SocketServer) {
+	// If no queue exists for the room, create one
+	if (!typingQueue[roomId]) {
+		typingQueue[roomId] = []
+	}
+
+	// Add the new typing event to the queue
+	typingQueue[roomId].push({ userId, cursorPosition })
+
+	// If no event is currently being processed, start processing the queue
+	if (!processingQueue[roomId]) {
+		processingQueue[roomId] = true
+		processTypingQueue(roomId, io)
+	}
+}
+
+
 // Function to get all users in a room
 function getUsersInRoom(roomId: string): User[] {
 	return userSocketMap.filter((user) => user.roomId == roomId)
@@ -221,6 +267,8 @@ io.on("connection", (socket) => {
 		if (!user) return
 		const roomId = user.roomId
 		socket.broadcast.to(roomId).emit(SocketEvent.TYPING_START, { user })
+		// Add typing event to the queue for the room
+		// addTypingEventToQueue(roomId, socket.id, cursorPosition, io)
 	})
 
 	socket.on(SocketEvent.TYPING_PAUSE, () => {

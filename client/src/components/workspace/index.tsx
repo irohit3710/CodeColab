@@ -1,9 +1,9 @@
 import { useAppContext } from "@/context/AppContext"
 import useResponsive from "@/hooks/useResponsive"
 import { ACTIVITY_STATE } from "@/types/app"
-// import DrawingEditor from "../drawing/DrawingEditor"
+import DrawingEditor from "../drawing/DrawingEditor"
 import EditorComponent from "../editor/EditorComponent"
-import DrawingView from "../drawing/DrawingView"
+// import DrawingView from "../drawing/DrawingView"
 
 function WorkSpace() {
     const { viewHeight } = useResponsive()
@@ -15,7 +15,7 @@ function WorkSpace() {
             style={{ height: viewHeight }}
         >
             {activityState === ACTIVITY_STATE.DRAWING ? (
-                <DrawingView />
+                <DrawingEditor />
             ) : (
                 <EditorComponent />
             )}

@@ -63,7 +63,9 @@ function Editor() {
             cursorTooltipBaseTheme,
             scrollPastEnd(),
         ]
-        const langExt = loadLanguage(language.toLowerCase() as LanguageName)
+        console.log(language);
+        const langExt = loadLanguage(language.toLowerCase()=='c++' ? 'cpp':language.toLowerCase() as LanguageName)
+        console.log(langExt);
         if (langExt) {
             extensions.push(langExt)
         } else {
